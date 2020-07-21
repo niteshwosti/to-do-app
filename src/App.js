@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import LandingPage from "./Components/LandingPage";
 import DisplayList from "./Components/DisplayList";
-
+import './App.css'
 class App extends Component {
     state = {
         itemList: [],
@@ -16,17 +16,18 @@ class App extends Component {
     }
     handleAdd = (e) => {
         e.preventDefault();
-        const items = {
-            item: this.state.item,
-            id: this.state.id
-        };
-        const newItems = [...this.state.itemList, items]
-        this.setState({
-            itemList: newItems,
-            id: this.state.id + 1,
-            item: '',
-            update: false
-        })
+            const items = {
+                item: this.state.item,
+                id: this.state.id
+            };
+            const newItems = [...this.state.itemList, items]
+            this.setState({
+                itemList: newItems,
+                id: this.state.id + 1,
+                item: '',
+                update: false
+            })
+
     }
 
     handleReset = () => {
@@ -56,10 +57,12 @@ class App extends Component {
     render() {
         return (
             <div className="container">
+                <div>
                 <LandingPage item={this.state.item} handleChange={this.handleChange} handleAdd={this.handleAdd}
                 updateItem={this.state.update}/>
                 <DisplayList itemsList={this.state.itemList} handleDelete={this.handleDelete} handleReset={this.handleReset}
                 handleEdit={this.handleEdit}/>
+                </div>
             </div>
         );
     }
