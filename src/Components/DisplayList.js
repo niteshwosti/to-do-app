@@ -1,6 +1,6 @@
 import React from 'react';
 function DisplayList(props) {
-    const {itemsList,handleReset,handleDelete}=props;
+    const {itemsList,handleReset,handleDelete,handleEdit}=props;
 
     return (
         <div>
@@ -9,6 +9,7 @@ function DisplayList(props) {
                     itemsList.map((value) => (
                         <h5 key={value.id}>{value.item}
                         <button type='button' onClick={()=>handleDelete(value.id)}>Delete</button>
+                            <button type='button' onClick={()=>handleEdit(value.id)}>Edit</button>
                         </h5>
                     ))
                 }

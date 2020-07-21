@@ -6,7 +6,8 @@ class App extends Component {
     state = {
         itemList: [],
         item: '',
-        id:1
+        id:1,
+        update:false
     };
     handleChange = (e) => {
         this.setState({
@@ -15,21 +16,23 @@ class App extends Component {
     }
     handleAdd = (e) => {
         e.preventDefault();
-        const items={
-            item:this.state.item,
-            id:this.state.id
+        const items = {
+            item: this.state.item,
+            id: this.state.id
         };
-        const newItems=[...this.state.itemList,items]
+        const newItems = [...this.state.itemList, items]
         this.setState({
-            itemList:newItems,
-            id:this.state.id+1,
-
+            itemList: newItems,
+            id: this.state.id + 1,
+            item: '',
+            update: false
         })
-        console.log(this.state.itemList);
     }
+
     handleReset = () => {
         this.setState({
-            itemList: []
+            itemList: [],
+            item:''
         })
     }
     handleDelete = (id) => {
@@ -37,15 +40,26 @@ class App extends Component {
         this.setState({
             itemList:rem
         })
-
+    }
+    handleEdit =(id)=>{
+        const rem=this.state.itemList.filter(item=>item.id!==id);
+        const toEdit=this.state.itemList.find(item=>item.id===id);
+        this.setState({
+            itemList:rem,
+            item:toEdit.item,
+            id:id,
+            update:true
+        })
     }
 
 
     render() {
         return (
             <div className="container">
-                <LandingPage item={this.state.item} handleChange={this.handleChange} handleAdd={this.handleAdd}/>
-                <DisplayList itemsList={this.state.itemList} handleDelete={this.handleDelete} handleReset={this.handleReset}/>
+                <LandingPage item={this.state.item} handleChange={this.handleChange} handleAdd={this.handleAdd}
+                updateItem={this.state.update}/>
+                <DisplayList itemsList={this.state.itemList} handleDelete={this.handleDelete} handleReset={this.handleReset}
+                handleEdit={this.handleEdit}/>
             </div>
         );
     }
